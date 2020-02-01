@@ -33,4 +33,41 @@ func main() {
 	}
 
 	fmt.Println("Connected to MongoDB!")
+
+	collection := client.Database("recipe-api").Collection("recipes")
+
+	a := Recipe{"Spagetti"}
+	b := Recipe{"Tacos"}
+	c := Recipe{"Chicken Fingers"}
+
+	insertResult, err := collection.InsertOne(context.TODO(), a)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Inserted a single document: ", insertResult.InsertedID)
+
+	recipes := []interface{}{b, c}
+
+	insertManyResult, err := collection.InsertMany(context.TODO(), recipes)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Inserted multiple documents: ", insertManyResult.InsertedIDs)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Inserted multiple documents: ", insertManyResult.InsertedIDs)
+
+	// err = client.Disconnect(context.TODO())
+
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Connection to MongoDB closed.")
 }
