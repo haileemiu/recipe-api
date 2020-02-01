@@ -11,13 +11,13 @@ import (
 func main() {
 	fmt.Println("main")
 	r := mux.NewRouter()
-	r.HandleFunc("/", fooBarHandler).Methods("GET")
+	r.HandleFunc("/recipes", GetRecipesHandler).Methods("GET")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func fooBarHandler(w http.ResponseWriter, r *http.Request) {
+func GetRecipesHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "foobar\n")
 }
 
